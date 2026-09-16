@@ -102,6 +102,11 @@ namespace GTAmodel
 		return "CARNOTFOUND";
 	}
 
+	std::string Model::VehicleModelName() const
+	{
+		return GTAmemory::GetVehicleModelName(this->hash);
+	}
+
 	ModelDimensions Model::Dimensions() const
 	{
 		ModelDimensions dims;
@@ -171,53 +176,45 @@ namespace GTAmodel
 		return dim2;
 	}
 
-	bool Model::IsBicycle() const
+	bool Model::IsBicycle() const noexcept
 	{
 		return IS_THIS_MODEL_A_BICYCLE(this->hash) != 0;
 	}
-	bool Model::IsBike() const
+	bool Model::IsBike() const noexcept
 	{
 		return IS_THIS_MODEL_A_BIKE(this->hash) || this->hash == VEHICLE_CHIMERA;
 	}
-	bool Model::IsQuadbike() const
+	bool Model::IsQuadbike() const noexcept
 	{
 		return IS_THIS_MODEL_A_QUADBIKE(this->hash) != 0;
 	}
-	bool Model::IsBoat() const
+	bool Model::IsBoat() const noexcept
 	{
 		return IS_THIS_MODEL_A_BOAT(this->hash) != 0;
 	}
-	bool Model::IsCar() const
+	bool Model::IsCar() const noexcept
 	{
 		return IS_THIS_MODEL_A_CAR(this->hash) != 0;
 	}
-	bool Model::IsHeli() const
+	bool Model::IsHeli() const noexcept
 	{
 		return IS_THIS_MODEL_A_HELI(this->hash) != 0;
 	}
-	bool Model::IsPlane() const
+	bool Model::IsPlane() const noexcept
 	{
 		return IS_THIS_MODEL_A_PLANE(this->hash) != 0;
 	}
-	bool Model::IsTrain() const
+	bool Model::IsTrain() const noexcept
 	{
 		return IS_THIS_MODEL_A_TRAIN(this->hash) != 0;
 	}
-	bool Model::IsFastBoat() const
+	bool Model::IsFastBoat() const noexcept
 	{
 		return IS_THIS_MODEL_A_JETSKI(this->hash) != 0;
 	}
 	bool Model::IsCargobob() const
 	{
-		switch (this->hash)
-		{
-		case VEHICLE_CARGOBOB:
-		case VEHICLE_CARGOBOB2:
-		case VEHICLE_CARGOBOB3:
-		case VEHICLE_CARGOBOB4:
-			return true;
-		}
-		return false;
+		return this->VehicleModelName().find("cargobob") != std::string::npos;
 	}
 	bool Model::IsBus() const
 	{
@@ -229,6 +226,7 @@ namespace GTAmodel
 		case VEHICLE_RENTALBUS:
 		case VEHICLE_AIRBUS:
 		case VEHICLE_PBUS:
+		case VEHICLE_PBUS2:
 		case VEHICLE_TOURBUS:
 			return true;
 		}
@@ -238,21 +236,33 @@ namespace GTAmodel
 	{
 		switch (this->hash)
 		{
-		case VEHICLE_POLICEOLD2:
 		case VEHICLE_FBI:
-		case VEHICLE_RIOT:
 		case VEHICLE_FBI2:
+		case VEHICLE_RIOT:
+		case VEHICLE_RIOT2:
+		case VEHICLE_SHERIFF:
+		case VEHICLE_SHERIFF2:
 		case VEHICLE_PRANGER:
 		case VEHICLE_POLICEOLD1:
-		case VEHICLE_POLICET:
-		case VEHICLE_SHERIFF2:
+		case VEHICLE_POLICEOLD2:
 		case VEHICLE_PBUS:
-		case VEHICLE_POLICE2:
 		case VEHICLE_POLICE:
+		case VEHICLE_POLICE2:
 		case VEHICLE_POLICE3:
-		case VEHICLE_SHERIFF:
 		case VEHICLE_POLICE4:
+		case VEHICLE_POLICE5:
 		case VEHICLE_POLICEB:
+		case VEHICLE_POLICET:
+		case VEHICLE_POLGAUNTLET:
+		case VEHICLE_POLGREENWOOD:
+		case VEHICLE_POLIMPALER5:
+		case VEHICLE_POLIMPALER6:
+		case VEHICLE_POLDORADO:
+		case VEHICLE_POLDOMINATOR10:
+		case VEHICLE_POLCARACARA:
+		case VEHICLE_POLCOQUETTE4:
+		case VEHICLE_POLFACTION2:
+		case VEHICLE_POLTERMINUS:
 			return true;
 		}
 		return false;
@@ -297,6 +307,7 @@ namespace GTAmodel
 	}
 	bool Model::IsBennySupportedVehicle()
 	{
+		//todo needs update (is there maybe a other way?)
 		switch (this->hash)
 		{
 		case VEHICLE_BUCCANEER2:
@@ -315,7 +326,7 @@ namespace GTAmodel
 		return false;
 	}
 
-	bool Model::IsVehicle() const
+	bool Model::IsVehicle() const noexcept
 	{
 		return IS_MODEL_A_VEHICLE(this->hash) != 0;
 	}
@@ -348,7 +359,7 @@ namespace GTAmodel
 	{
 		this->Load(7500);
 	}
-	bool Model::IsLoaded() const
+	bool Model::IsLoaded() const noexcept
 	{
 		return HAS_MODEL_LOADED(this->hash) != 0;
 	}
@@ -373,7 +384,7 @@ namespace GTAmodel
 		}
 		return false;
 	}
-	bool Model::IsCollisionLoaded() const
+	bool Model::IsCollisionLoaded() const noexcept
 	{
 		return HAS_COLLISION_FOR_MODEL_LOADED(this->hash) != 0;
 	}
@@ -383,11 +394,11 @@ namespace GTAmodel
 	}
 
 
-	bool Model::IsValid() const
+	bool Model::IsValid() const noexcept
 	{
 		return IS_MODEL_VALID(this->hash) != 0;
 	}
-	bool Model::IsInCdImage() const
+	bool Model::IsInCdImage() const noexcept
 	{
 		return IS_MODEL_IN_CDIMAGE(this->hash) != 0;
 	}

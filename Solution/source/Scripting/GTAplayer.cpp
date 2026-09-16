@@ -38,7 +38,7 @@ INT8& GTAplayer::Handle()
 {
 	return index;
 }
-INT8 GTAplayer::GetHandle() const
+INT8 GTAplayer::GetHandle() const noexcept
 {
 	return index;
 }
@@ -129,7 +129,7 @@ INT GTAplayer::MaxArmour_get() const
 	return GET_PLAYER_MAX_ARMOUR(index);
 }
 
-INT GTAplayer::WantedLevel_get() const
+INT GTAplayer::GetWantedLevel() const
 {
 	return GET_PLAYER_WANTED_LEVEL(index);
 }
@@ -150,9 +150,9 @@ void GTAplayer::SetControl(bool toggle, int flag)
 
 
 
-bool GTAplayer::operator == (GTAplayer const& right)
+bool GTAplayer::operator == (const GTAplayer& other) const
 {
-	return this->index == right.index;
+	return this->index == other.index;
 }
 
 

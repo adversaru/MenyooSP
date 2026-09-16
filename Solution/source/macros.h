@@ -7,6 +7,8 @@
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 */
+#include "../generated/version.h"
+
 #pragma once
 
 //#pragma comment(lib, "$(SolutionDir)\external\ScriptHookV.lib")
@@ -15,8 +17,6 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-// version
-#define MENYOO_CURRENT_VER_ "1.8.1"
 
 #define GAME_PLAYERCOUNT 30
 
